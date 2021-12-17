@@ -1,0 +1,37 @@
+<%= form_with(model: vendor) do |form| %>
+  <% if vendor.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(vendor.errors.count, "error") %> prohibited this vendor from being saved:</h2>
+
+      <ul>
+        <% vendor.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name, style: "display: block" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :region, style: "display: block" %>
+    <%= form.text_field :region %>
+  </div>
+
+  <div>
+    <%= form.label :address, style: "display: block" %>
+    <%= form.text_field :address %>
+  </div>
+
+  <div>
+    <%= form.label :director_name, style: "display: block" %>
+    <%= form.text_field :director_name %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
