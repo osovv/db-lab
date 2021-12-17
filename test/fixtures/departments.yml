@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  factory: one
+  chief_name: MyString
+
+two:
+  factory: two
+  chief_name: MyString
