@@ -2,13 +2,30 @@
 
 <h1>Departments</h1>
 
-<div id="departments">
-  <% @departments.each do |department| %>
-    <%= render department %>
-    <p>
-      <%= link_to "Show this department", department %>
-    </p>
-  <% end %>
+<div id="departments" style="overflow-x: auto">
+  <table style="white-space: nowrap">
+    <thead>
+    <tr>
+      <th>Id</th>
+      <th>Factory Id</th>
+      <th>Chief name</th>
+      <th colspan="3">Actions</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @departments.each do |department| %>
+      <tr>
+        <td> <%= department.id %></td>
+        <td> <%= department.factory_id %></td>
+        <td> <%= department.department %></td>
+        <td> <%= link_to 'Show', department %></td>
+        <td> <%= link_to 'Edit', edit_department_path(department) %></td>
+        <td> <%= link_to 'Destroy', department, method: :delete, confirm: 'Are you sure?' %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
 </div>
 
 <%= link_to "New department", new_department_path %>
