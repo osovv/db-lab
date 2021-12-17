@@ -2,13 +2,32 @@
 
 <h1>Factories</h1>
 
-<div id="factories">
-  <% @factories.each do |factory| %>
-    <%= render factory %>
-    <p>
-      <%= link_to "Show this factory", factory %>
-    </p>
-  <% end %>
+<div id="factories" style="overflow-x: auto">
+  <table style="white-space: nowrap">
+    <thead>
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Address</th>
+      <th>Director name</th>
+      <th colspan="3">Actions</th>
+    </tr>
+    </thead>
+
+    <tbody>
+      <% @factories.each do |factory| %>
+        <tr>
+          <td> <%= factory.id %></td>
+          <td> <%= factory.name %></td>
+          <td> <%= factory.address %></td>
+          <td> <%= factory.director_name %></td>
+          <td> <%= link_to 'Show', factory %></td>
+          <td> <%= link_to 'Edit', edit_factory_path(factory) %></td>
+          <td> <%= link_to 'Destroy', factory, method: :delete, confirm: 'Are you sure?' %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>
 
 <%= link_to "New factory", new_factory_path %>

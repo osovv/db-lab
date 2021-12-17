@@ -7,18 +7,23 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag "application" %>
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
   </head>
 
-  <body>
-  <nav>
-    <a href="/factories"> Factories </a>
-    <a href="/departments"> Departments </a>
-    <a href="/technologies"> Technologies </a>
-    <a href="/products"> Products </a>
-    <a href="/parts"> Parts </a>
-    <a href="/vendors"> Vendors </a>
-  </nav>
-  
-    <%= yield %>
+  <body style="max-width: 100vw">
+    <header>
+      <nav>
+        <a href="/factories"> Factories </a>
+        <a href="/departments"> Departments </a>
+        <a href="/technologies"> Technologies </a>
+        <a href="/products"> Products </a>
+        <a href="/parts"> Parts </a>
+        <a href="/vendors"> Vendors </a>
+      </nav>
+    </header>
+
+    <main style="min-width: 90vw; max-width: 90vw; margin: 0 auto">
+        <%= yield %>
+    </main>
   </body>
 </html>
