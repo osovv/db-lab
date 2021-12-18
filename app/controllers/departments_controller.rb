@@ -21,28 +21,34 @@ class DepartmentsController < ApplicationController
 
   # POST /departments
   def create
-    @department = Department.new(department_params)
+    need_auth(url: departments_path) do
+      @department = Department.new(department_params)
 
-    if @department.save
-      redirect_to @department, notice: "Department was successfully created."
-    else
-      render :new, status: :unprocessable_entity
+      if @department.save
+        redirect_to @department, notice: "Department was successfully created."
+      else
+        render :new, status: :unprocessable_entity
+      end
     end
   end
 
   # PATCH/PUT /departments/1
   def update
-    if @department.update(department_params)
-      redirect_to @department, notice: "Department was successfully updated."
-    else
-      render :edit, status: :unprocessable_entity
+    need_auth(url: @department) do
+      if @department.update(department_params)
+        redirect_to @department, notice: "Department was successfully updated."
+      else
+        render :edit, status: :unprocessable_entity
+      end
     end
   end
 
   # DELETE /departments/1
   def destroy
-    @department.destroy
-    redirect_to departments_url, notice: "Department was successfully destroyed."
+    need_auth(url: @department) do
+      @department.destroy
+      redirect_to departments_url, notice: "Department was successfully destroyed."
+    end
   end
 
   private

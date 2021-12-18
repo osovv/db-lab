@@ -21,28 +21,34 @@ class VendorsController < ApplicationController
 
   # POST /vendors
   def create
-    @vendor = Vendor.new(vendor_params)
+    need_auth(url: vendors_path) do
+      @vendor = Vendor.new(vendor_params)
 
-    if @vendor.save
-      redirect_to @vendor, notice: "Vendor was successfully created."
-    else
-      render :new, status: :unprocessable_entity
+      if @vendor.save
+        redirect_to @vendor, notice: "Vendor was successfully created."
+      else
+        render :new, status: :unprocessable_entity
+      end
     end
   end
 
   # PATCH/PUT /vendors/1
   def update
-    if @vendor.update(vendor_params)
-      redirect_to @vendor, notice: "Vendor was successfully updated."
-    else
-      render :edit, status: :unprocessable_entity
+    need_auth(url: @vendor) do
+      if @vendor.update(vendor_params)
+        redirect_to @vendor, notice: "Vendor was successfully updated."
+      else
+        render :edit, status: :unprocessable_entity
+      end
     end
   end
 
   # DELETE /vendors/1
   def destroy
-    @vendor.destroy
-    redirect_to vendors_url, notice: "Vendor was successfully destroyed."
+    need_auth(url: @vendor) do
+      @vendor.destroy
+      redirect_to vendors_url, notice: "Vendor was successfully destroyed."
+    end
   end
 
   private

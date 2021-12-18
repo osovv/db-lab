@@ -21,28 +21,34 @@ class PartsController < ApplicationController
 
   # POST /parts
   def create
-    @part = Part.new(part_params)
+    need_auth(url: parts_path) do
+      @part = Part.new(part_params)
 
-    if @part.save
-      redirect_to @part, notice: "Part was successfully created."
-    else
-      render :new, status: :unprocessable_entity
+      if @part.save
+        redirect_to @part, notice: "Part was successfully created."
+      else
+        render :new, status: :unprocessable_entity
+      end
     end
   end
 
   # PATCH/PUT /parts/1
   def update
-    if @part.update(part_params)
-      redirect_to @part, notice: "Part was successfully updated."
-    else
-      render :edit, status: :unprocessable_entity
+    need_auth(url: @part) do
+      if @part.update(part_params)
+        redirect_to @part, notice: "Part was successfully updated."
+      else
+        render :edit, status: :unprocessable_entity
+      end
     end
   end
 
   # DELETE /parts/1
   def destroy
-    @part.destroy
-    redirect_to parts_url, notice: "Part was successfully destroyed."
+    need_auth(url: @part) do
+      @part.destroy
+      redirect_to parts_url, notice: "Part was successfully destroyed."
+    end
   end
 
   private
