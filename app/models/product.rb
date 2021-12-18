@@ -3,4 +3,5 @@ class Product < ApplicationRecord
   belongs_to :department
   belongs_to :technology
   validates_presence_of :name
+  has_many :parts
 end
