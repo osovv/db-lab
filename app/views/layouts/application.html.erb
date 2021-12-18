@@ -23,7 +23,9 @@
     </header>
 
     <main style="min-width: 90vw; max-width: 90vw; margin: 0 auto">
-        <%= yield %>
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
+      <%= yield %>
     </main>
   </body>
 </html>
