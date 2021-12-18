@@ -21,28 +21,34 @@ class TechnologiesController < ApplicationController
 
   # POST /technologies
   def create
-    @technology = Technology.new(technology_params)
+    need_auth(url: technologies_url) do
+      @technology = Technology.new(technology_params)
 
-    if @technology.save
-      redirect_to @technology, notice: "Technology was successfully created."
-    else
-      render :new, status: :unprocessable_entity
+      if @technology.save
+        redirect_to @technology, notice: "Technology was successfully created."
+      else
+        render :new, status: :unprocessable_entity
+      end
     end
   end
 
   # PATCH/PUT /technologies/1
   def update
-    if @technology.update(technology_params)
-      redirect_to @technology, notice: "Technology was successfully updated."
-    else
-      render :edit, status: :unprocessable_entity
+    need_auth(url: @technology) do
+      if @technology.update(technology_params)
+        redirect_to @technology, notice: "Technology was successfully updated."
+      else
+        render :edit, status: :unprocessable_entity
+      end
     end
   end
 
   # DELETE /technologies/1
   def destroy
-    @technology.destroy
-    redirect_to technologies_url, notice: "Technology was successfully destroyed."
+    need_auth(url: @technology) do
+      @technology.destroy
+      redirect_to technologies_url, notice: "Technology was successfully destroyed."
+    end
   end
 
   private

@@ -21,28 +21,34 @@ class FactoriesController < ApplicationController
 
   # POST /factories
   def create
-    @factory = Factory.new(factory_params)
+    need_auth(url: factories_path) do
+      @factory = Factory.new(factory_params)
 
-    if @factory.save
-      redirect_to @factory, notice: "Factory was successfully created."
-    else
-      render :new, status: :unprocessable_entity
+      if @factory.save
+        redirect_to @factory, notice: "Factory was successfully created."
+      else
+        render :new, status: :unprocessable_entity
+      end
     end
   end
 
   # PATCH/PUT /factories/1
   def update
-    if @factory.update(factory_params)
-      redirect_to @factory, notice: "Factory was successfully updated."
-    else
-      render :edit, status: :unprocessable_entity
+    need_auth(url: @factory) do
+      if @factory.update(factory_params)
+        redirect_to @factory, notice: "Factory was successfully updated."
+      else
+        render :edit, status: :unprocessable_entity
+      end
     end
   end
 
   # DELETE /factories/1
   def destroy
-    @factory.destroy
-    redirect_to factories_url, notice: "Factory was successfully destroyed."
+    need_auth(url: @factory) do
+      @factory.destroy
+      redirect_to factories_url, notice: "Factory was successfully destroyed."
+    end
   end
 
   private
